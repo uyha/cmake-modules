@@ -7,6 +7,7 @@ output=pull-modules.sh
 shopt -s globstar
 modules=(**/*.cmake)
 modules=("${modules[@]/%/'"'}")
+#shellcheck disable=SC2016
 modules=("${modules[@]/#/'"$raw_repo/master/'}")
 
 cat >$output <<EOF
