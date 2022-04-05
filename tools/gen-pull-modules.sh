@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-output=pull-modules.sh
+output=tools/pull-modules.sh
 
 shopt -s globstar
 modules=(**/*.cmake)
