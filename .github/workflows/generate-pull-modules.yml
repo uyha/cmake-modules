@@ -1,0 +1,8 @@
+name: Generate pull-modules scripts
+on: push
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate and push if different
+        run: ./tools/auto-gen-pull-modules.sh
