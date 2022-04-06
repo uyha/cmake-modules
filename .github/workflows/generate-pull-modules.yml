@@ -16,9 +16,9 @@ jobs:
           git config user.email "<>"
 
       - name: Generate and push if different for Linux
-        if: ${{ matrix.os == ubuntu-latest }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: ./tools/auto-gen-pull-modules.sh
 
       - name: Generate and push if different for Windows
-        if: ${{ matrix.os == windows-latest }}
-        run: pws ./tools/auto-gen-pull-modules.ps1
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: pwsh ./tools/auto-gen-pull-modules.ps1
