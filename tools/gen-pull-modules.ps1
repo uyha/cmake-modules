@@ -5,11 +5,11 @@ $modules = Get-ChildItem *.cmake -Recurse | `
            ForEach-Object {"`"$_`""}
 $directories = Get-ChildItem *cmake -Recurse | `
                Resolve-Path -Relative | `
+               ForEach-Object {$_ -Replace "\.\\"} | `
+               ForEach-Object {$_ -Replace "\\", "/"} | `
                Split-Path | `
-               Where-Object { $_ -ne '.' } | `
                Sort-Object -Unique | `
-               Split-Path -Leaf |
-               ForEach-Object {"`"$_`""}
+               ForEach-Object {"`"cmake/$_`""}
 
 Set-Content -Path $PSScriptRoot/pull-modules.ps1 -Value @"
 `$repo="https://github.com/uyha/cmake-modules"
