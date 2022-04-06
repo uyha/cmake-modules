@@ -1,0 +1,21 @@
+$repo="https://github.com/uyha/cmake-modules"
+$raw_repo="https://raw.githubusercontent.com/uyha/cmake-modules/master"
+$modules = @(
+  "CompileOptions.cmake"
+  "Conan.cmake"
+  "FindConan.cmake"
+  "FindPoetry.cmake"
+  "Poetry.cmake"
+)
+$directories = @(
+  
+)
+
+foreach($directory in $directories){
+  if(-not (Test-Path $directory -PathType Container)){
+    [void](New-Item $directory -ItemType Directory)
+  }
+}
+
+$urls = $modules | ForEach-Object {"$($raw_repo)/$_"}
+Start-BitsTransfer -Source $urls -Destination $modules
