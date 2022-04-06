@@ -4,5 +4,8 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
       - name: Generate and push if different
         run: ./tools/auto-gen-pull-modules.sh
