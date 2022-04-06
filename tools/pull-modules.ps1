@@ -9,7 +9,7 @@ $modules = @(
 )
 $destinations = $modules | ForEach-Object { "cmake/$_" }
 $directories = @(
-  
+  "cmake/"
 )
 
 foreach($directory in $directories){
