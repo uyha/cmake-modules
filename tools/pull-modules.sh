@@ -3,7 +3,7 @@
 set -euo pipefail
 
 repo="https://github.com/uyha/cmake-modules"
-raw_repo="https://raw.githubusercontent.com/uyha/cmake-modules"
+raw_repo="https://raw.githubusercontent.com/uyha/cmake-modules/master"
 modules=(
   "CompileOptions.cmake"
   "Conan.cmake"
@@ -19,4 +19,4 @@ printf "%s\n" "${modules[@]}" |
          --location \
          --create-dirs \
          --output cmake/{} \
-         $raw_repo/master/{}
+         $raw_repo/{}
