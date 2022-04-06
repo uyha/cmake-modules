@@ -7,6 +7,7 @@ $modules = @(
   "FindPoetry.cmake"
   "Poetry.cmake"
 )
+$destinations = $modules | ForEach-Object { "cmake/$_" }
 $directories = @(
   
 )
@@ -18,4 +19,4 @@ foreach($directory in $directories){
 }
 
 $urls = $modules | ForEach-Object {"$($raw_repo)/$_"}
-Start-BitsTransfer -Source $urls -Destination $modules
+Start-BitsTransfer -Source $urls -Destination $destinations
