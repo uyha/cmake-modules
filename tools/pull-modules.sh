@@ -10,6 +10,7 @@ modules=(
   "FindConan.cmake"
   "FindPoetry.cmake"
   "Poetry.cmake"
+  "Random.cmake"
 )
 
 echo "Downloading modules from $repo"
