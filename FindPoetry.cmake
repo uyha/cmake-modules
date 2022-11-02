@@ -65,12 +65,17 @@ if(Poetry_EXECUTABLE)
             set(arg_DIR ${CMAKE_CURRENT_BINARY_DIR})
             message(NOTICE "DIR is not set, defaulting to ${arg_DIR}")
         endif()
+
         if(WIN32)
-            set(shell_command cmd /C)
-        endif()
-        execute_process(COMMAND "${CMAKE_COMMAND}" -E chdir "${arg_DIR}" "${shell_command}" "${Poetry_EXECUTABLE}" env info --path
+          execute_process(COMMAND "${CMAKE_COMMAND}" -E chdir "${arg_DIR}" cmd /C "${Poetry_EXECUTABLE}" env info --path
                 RESULT_VARIABLE result
                 OUTPUT_VARIABLE output)
+        else()
+          execute_process(COMMAND "${CMAKE_COMMAND}" -E chdir "${arg_DIR}" "${Poetry_EXECUTABLE}" env info --path
+                RESULT_VARIABLE result
+                OUTPUT_VARIABLE output)
+        endif()
+
         string(STRIP "${output}" output)
         set("${out}" "${output}" PARENT_SCOPE)
     endfunction()
