@@ -5,20 +5,20 @@ if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml")
   return()
 endif()
 
-if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/poetry.lock")
-    file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
-    poetry_install(DIR "${CMAKE_CURRENT_BINARY_DIR}" OPTIONS "--no-root" "--only" "main")
-elseif("${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml" IS_NEWER_THAN "${CMAKE_CURRENT_BINARY_DIR}/poetry.lock")
-    file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
-    poetry_update(DIR "${CMAKE_CURRENT_BINARY_DIR}" OPTIONS "--no-dev")
+poetry_path(Python_ROOT_DIR DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+if(Python_ROOT_DIR STREQUAL "" OR NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/poetry.lock")
+  poetry_install(DIR "${CMAKE_CURRENT_SOURCE_DIR}" OPTIONS "--no-root" "--only" "main")
+  poetry_path(Python_ROOT_DIR DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+elseif("${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml" IS_NEWER_THAN "${CMAKE_CURRENT_SOURCE_DIR}/poetry.lock")
+  poetry_update(DIR "${CMAKE_CURRENT_SOURCE_DIR}" OPTIONS "--only" "main")
 endif()
 
-poetry_path(Python_ROOT_DIR)
 set(Python_ROOT_DIR "${Python_ROOT_DIR}" CACHE PATH "Path to the root directory of the target Python interpreter")
 
 set_property(
   DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
   APPEND
   PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml"
-)
+  )
 
