@@ -15,7 +15,9 @@ modules=(
 echo "Downloading modules from $repo"
 printf "%s\n" "${modules[@]}" |
   xargs -P "$(nproc)" -I {} \
-    curl --silent \
+    curl \
+         --header "Cache-Control: no-cache, no-store" \
+         --silent \
          --location \
          --create-dirs \
          --output cmake/{} \
