@@ -10,7 +10,8 @@ poetry_path(Python_ROOT_DIR DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 if(Python_ROOT_DIR STREQUAL "" OR NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/poetry.lock")
   poetry_install(DIR "${CMAKE_CURRENT_SOURCE_DIR}" OPTIONS "--no-root" "--only" "main")
   poetry_path(Python_ROOT_DIR DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-elseif("${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml" IS_NEWER_THAN "${CMAKE_CURRENT_SOURCE_DIR}/poetry.lock")
+# IS_NEWER_THAN returns true when both files have the same timestamp, the inverted condition is needed here
+elseif(NOT "${CMAKE_CURRENT_SOURCE_DIR}/poetry.lock" IS_NEWER_THAN "${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml")
   poetry_update(DIR "${CMAKE_CURRENT_SOURCE_DIR}" OPTIONS "--only" "main")
 endif()
 
