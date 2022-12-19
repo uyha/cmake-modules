@@ -5,6 +5,7 @@ set -euo pipefail
 repo="https://github.com/uyha/cmake-modules"
 raw_repo="https://raw.githubusercontent.com/uyha/cmake-modules/master"
 modules=(
+  "Ccache.cmake"
   "CompileOptions.cmake"
   "Conan.cmake"
   "FindConan.cmake"
