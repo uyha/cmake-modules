@@ -1,4 +1,5 @@
 name: Generate pull-modules scripts
+concurrency: auto-gen-pull-modules
 on: push
 jobs:
   generate:
