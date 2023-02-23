@@ -8,7 +8,7 @@ conan_install(
   "${CMAKE_CURRENT_SOURCE_DIR}"
   OUTPUT_FOLDER "${CMAKE_CURRENT_BINARY_DIR}"
   GENERATOR CMakeDeps
-  SETTING_BUILD build_type=Release
+  SETTING_BUILD build_type=${CMAKE_BUILD_TYPE}
   SETTING_HOST build_type=${CMAKE_BUILD_TYPE}
   BUILD missing
   VERBOSE quiet
