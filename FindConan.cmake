@@ -88,6 +88,7 @@ if(Conan_EXECUTABLE)
 
     execute_process(
       COMMAND "${Conan_EXECUTABLE}" install ${optional_arguments} ${arg_UNPARSED_ARGUMENTS}
+      COMMAND_ERROR_IS_FATAL LAST
       )
   endfunction()
 endif()
