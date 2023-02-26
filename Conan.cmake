@@ -11,7 +11,7 @@ conan_install(
   SETTING_BUILD build_type=Release
   SETTING_HOST build_type=${CMAKE_BUILD_TYPE}
   BUILD missing
-  VERBOSE quiet
+  VERBOSE error
 )
 
 foreach(conanfile IN ITEMS "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.py")
