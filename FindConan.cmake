@@ -1,7 +1,7 @@
 find_program(Conan_EXECUTABLE conan HINTS ${Conan_DIR})
 
 if(Conan_EXECUTABLE)
-  if(NOT TARGET Conan::Conan)
+  if(NOT TARGET Conan::Conan AND NOT DEFINED CMAKE_SCRIPT_MODE_FILE)
     add_executable(Conan::Conan IMPORTED)
     set_target_properties(Conan::Conan PROPERTIES IMPORTED_LOCATION "${Conan_EXECUTABLE}")
   endif()
