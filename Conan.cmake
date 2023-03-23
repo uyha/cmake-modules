@@ -1,4 +1,5 @@
 option(USE_CONAN "Use conan to manage dependencies" ON)
+option(CONAN_AUTODETECT "Detect Conan settings automatically through CMake variables" OFF)
 if(NOT USE_CONAN)
   return()
 endif()
@@ -9,42 +10,32 @@ if(NOT DEFINED CONAN_PROFILE_HOST)
   message(FATAL_ERROR "CONAN_PROFILE_HOST is required but it is not defined, please define it to be the path to the conan profile for the host machine")
 endif()
 
-conan_detect_compiler(host_compiler host_compiler_version)
-
-if(NOT DEFINED CONAN_PROFILE_BUILD)
-  conan_install(
-    "${CMAKE_CURRENT_SOURCE_DIR}"
-    OUTPUT_FOLDER "${CMAKE_CURRENT_BINARY_DIR}"
-
-    GENERATOR CMakeDeps
-
-    PROFILE_HOST "${CONAN_PROFILE_HOST}"
-
-    SETTING_HOST build_type=${CMAKE_BUILD_TYPE}
-    SETTING_HOST compiler=${host_compiler}
-    SETTING_HOST compiler.version=${host_compiler_version}
-
-    BUILD missing
-    VERBOSE error
-    )
-else()
-  conan_install(
-    "${CMAKE_CURRENT_SOURCE_DIR}"
-    OUTPUT_FOLDER "${CMAKE_CURRENT_BINARY_DIR}"
-
-    GENERATOR CMakeDeps
-
-    PROFILE_HOST "${CONAN_PROFILE_HOST}"
-    PROFILE_BUILD "${CONAN_PROFILE_BUILD}"
-
-    SETTING_HOST build_type=${CMAKE_BUILD_TYPE}
-    SETTING_HOST compiler=${host_compiler}
-    SETTING_HOST compiler.version=${host_compiler_version}
-
-    BUILD missing
-    VERBOSE error
-    )
+list(APPEND conan_args PROFILE_HOST "${CONAN_PROFILE_HOST}")
+if(DEFINED CONAN_PROFILE_BUILD)
+  list(APPENND conan_args PROFILE_BUILD "${CONAN_PROFILE_BUILD}")
 endif()
+
+if(CONAN_AUTODETECT)
+  conan_detect_compiler(compiler compiler_version)
+  list(APPEND conan_args
+    SETTING_HOST compiler=${compiler}
+    SETTING_HOST compiler.version=${compiler_version})
+
+  conan_detect_standard(standard)
+  list(APPEND conan_args SETTING_HOST cppstd=${standard})
+
+  conan_default_libcxx(${compiler} libcxx)
+  list(APPEND conan_args SETTING_HOST libcxx=${libcxx})
+endif()
+
+conan_install(
+  "${CMAKE_CURRENT_SOURCE_DIR}"
+  OUTPUT_FOLDER "${CMAKE_CURRENT_BINARY_DIR}"
+  BUILD missing
+  VERBOSE error
+  GENERATOR CMakeDeps
+  ${conan_args}
+)
 
 
 foreach(conanfile IN ITEMS "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.py")
