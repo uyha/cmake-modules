@@ -92,6 +92,7 @@ if(Conan_EXECUTABLE)
       )
   endfunction()
 
+  # Adapted from https://github.com/conan-io/cmake-conan/blob/develop2/conan_support.cmake
   function(conan_detect_compiler compiler version)
     if(NOT DEFINED CMAKE_CXX_COMPILER_ID AND NOT DEFINED CMAKE_C_COMPILER_ID)
       message(FATAL_ERROR "CMAKE_CXX_COMPILER_ID and CMAKE_C_COMPILER_ID are not defined, could not detect the compiler (at least 1 of them needs to be defined)")
