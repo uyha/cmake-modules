@@ -22,10 +22,10 @@ if(CONAN_AUTODETECT)
     SETTING_HOST compiler.version=${compiler_version})
 
   conan_detect_standard(standard)
-  list(APPEND conan_args SETTING_HOST cppstd=${standard})
+  list(APPEND conan_args SETTING_HOST compiler.cppstd=${standard})
 
   conan_default_libcxx(${compiler} libcxx)
-  list(APPEND conan_args SETTING_HOST libcxx=${libcxx})
+  list(APPEND conan_args SETTING_HOST compiler.libcxx=${libcxx})
 endif()
 
 conan_install(
