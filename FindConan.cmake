@@ -128,6 +128,22 @@ if(Conan_EXECUTABLE)
     set(${compiler} ${compiler_result} PARENT_SCOPE)
     set(${version} ${version_result} PARENT_SCOPE)
   endfunction()
+
+  # Adapted from https://github.com/conan-io/cmake-conan/blob/develop2/conan_support.cmake
+  function(conan_detect_standard standard)
+    set(${CXX_STANDARD} ${CMAKE_CXX_STANDARD} PARENT_SCOPE)
+    if (CMAKE_CXX_EXTENSIONS)
+      set(${CXX_STANDARD} "gnu${CMAKE_CXX_STANDARD}" PARENT_SCOPE)
+    endif()
+  endfunction()
+
+  function(conan_default_libcxx compiler libcxx)
+    if(compiler MATCHES "gcc")
+      set(${libcxx} libstdc++11)
+    elseif(compiler MATCHES "clang|apple-clang")
+      set(${libcxx} libc++)
+    endif()
+  endfunction()
 endif()
 
 include(FindPackageHandleStandardArgs)
