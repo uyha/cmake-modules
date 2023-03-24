@@ -146,6 +146,8 @@ if(Conan_EXECUTABLE)
       else()
         set(result 14)
       endif()
+    else()
+      message(FATAL_ERROR "Unknown compiler, cannot detect standard")
     endif()
 
     set(${standard} ${result} PARENT_SCOPE)

@@ -10,6 +10,10 @@ if(NOT DEFINED CONAN_PROFILE_HOST)
   message(FATAL_ERROR "CONAN_PROFILE_HOST is required but it is not defined, please define it to be the path to the conan profile for the host machine")
 endif()
 
+if(NOT DEFINED CMAKE_BUILD_TYPE)
+  message(FATAL_ERROR "CMAKE_BUILD_TYPE is required but it is not defined, please define it to be the build type")
+endif()
+
 list(APPEND conan_args PROFILE_HOST "${CONAN_PROFILE_HOST}")
 if(DEFINED CONAN_PROFILE_BUILD)
   list(APPENND conan_args PROFILE_BUILD "${CONAN_PROFILE_BUILD}")
@@ -21,7 +25,7 @@ if(CONAN_AUTODETECT)
     SETTING_HOST compiler=${compiler}
     SETTING_HOST compiler.version=${compiler_version})
 
-  conan_detect_standard(standard)
+  conan_default_standard(${compiler} ${compiler_version} standard)
   list(APPEND conan_args SETTING_HOST compiler.cppstd=${standard})
 
   conan_default_libcxx(${compiler} libcxx)
@@ -34,9 +38,9 @@ conan_install(
   BUILD missing
   VERBOSE error
   GENERATOR CMakeDeps
+  SETTING_HOST build_type=${CMAKE_BUILD_TYPE}
   ${conan_args}
 )
-
 
 foreach(conanfile IN ITEMS "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt" "${CMAKE_CURRENT_SOURCE_DIR}/conanfile.py")
   list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_BINARY_DIR}")
