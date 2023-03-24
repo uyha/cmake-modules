@@ -16,7 +16,10 @@ endif()
 
 list(APPEND conan_args PROFILE_HOST "${CONAN_PROFILE_HOST}")
 if(DEFINED CONAN_PROFILE_BUILD)
-  list(APPENND conan_args PROFILE_BUILD "${CONAN_PROFILE_BUILD}")
+  list(APPEND conan_args PROFILE_BUILD "${CONAN_PROFILE_BUILD}")
+else()
+  message(STATUS "CONAN_PROFILE_BUILD is not defined, assuming native compilation")
+  list(APPEND conan_args PROFILE_BUILD "${CONAN_PROFILE_HOST}")
 endif()
 
 if(CONAN_AUTODETECT)
