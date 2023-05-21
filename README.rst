@@ -4,8 +4,8 @@ River CMake Modules
 This is a collection of CMake scripts for various purposes, please read the subsections
 of each script to see how to use them.
 
-Using this module
-=================
+Using this repo
+===============
 To use this collection of CMake modules, please include this snippet in your CMake
 script
 
@@ -16,3 +16,4 @@ script
                         GIT_REPOSITORY https://github.com/uyha/cmake-modules.git
                         GIT_TAG v0.1.0)
    FetchContent_MakeAvailable(river)
+   list(APPEND CMAKE_MODULE_PATH "${river_BINARY_DIR}")
