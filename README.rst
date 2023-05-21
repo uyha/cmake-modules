@@ -17,3 +17,16 @@ script
                         GIT_TAG v0.1.0)
    FetchContent_MakeAvailable(river)
    list(APPEND CMAKE_MODULE_PATH "${river_BINARY_DIR}")
+
+Ccache
+======
+This module finds and uses the `ccache`_ program to speed up recompilation.
+To use this module, put ``include(Ccache)`` in your build script.
+
+--------------
+Customizations
+--------------
+- ``CCACHE_SLOPPINESS``: This variable controls the sloppiness of `ccache`_ (default:
+  ``pch_defines,time_macros``)
+
+.. _ccache: https://ccache.dev/
