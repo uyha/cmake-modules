@@ -16,7 +16,7 @@ script
                         GIT_REPOSITORY https://github.com/uyha/cmake-modules.git
                         GIT_TAG v0.1.0)
    FetchContent_MakeAvailable(river)
-   list(APPEND CMAKE_MODULE_PATH "${river_BINARY_DIR}")
+   list(APPEND CMAKE_MODULE_PATH "${river_SOURCE_DIR}")
 
 Ccache
 ======
