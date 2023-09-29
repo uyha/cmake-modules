@@ -24,15 +24,24 @@ endif()
 
 if(CONAN_AUTODETECT)
   conan_detect_compiler(compiler compiler_version)
+  conan_default_standard("${compiler}" "${compiler_version}" standard)
+  conan_default_libcxx("${compiler}" libcxx)
+
   list(APPEND conan_args
-    SETTING_HOST compiler=${compiler}
-    SETTING_HOST compiler.version=${compiler_version})
+    SETTING_HOST "compiler=${compiler}"
+    SETTING_HOST "compiler.version=${compiler_version}"
+    SETTING_HOST "compiler.cppstd=${standard}"
+    SETTING_HOST "compiler.libcxx=${libcxx}"
+  )
 
-  conan_default_standard(${compiler} ${compiler_version} standard)
-  list(APPEND conan_args SETTING_HOST compiler.cppstd=${standard})
-
-  conan_default_libcxx(${compiler} libcxx)
-  list(APPEND conan_args SETTING_HOST compiler.libcxx=${libcxx})
+if(NOT DEFINED CONAN_PROFILE_BUILD)
+    list(APPEND conan_args
+      SETTING_BUILD "compiler=${compiler}"
+      SETTING_BUILD "compiler.version=${compiler_version}"
+      SETTING_BUILD "compiler.cppstd=${standard}"
+      SETTING_BUILD "compiler.libcxx=${libcxx}"
+    )
+endif()
 endif()
 
 conan_install(
@@ -41,7 +50,7 @@ conan_install(
   BUILD missing
   VERBOSE error
   GENERATOR CMakeDeps
-  SETTING_HOST build_type=${CMAKE_BUILD_TYPE}
+  SETTING_HOST "build_type=${CMAKE_BUILD_TYPE}"
   ${conan_args}
 )
 
