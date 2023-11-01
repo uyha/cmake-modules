@@ -51,6 +51,7 @@ conan_install(
   VERBOSE error
   GENERATOR CMakeDeps
   SETTING_HOST "build_type=${CMAKE_BUILD_TYPE}"
+  SETTING_BUILD "build_type=${CMAKE_BUILD_TYPE}"
   ${conan_args}
 )
 
