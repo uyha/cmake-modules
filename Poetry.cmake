@@ -21,5 +21,5 @@ set_property(
   DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
   APPEND
   PROPERTY CMAKE_CONFIGURE_DEPENDS "${poetry_conf}"
-  )
+)
 
