@@ -14,7 +14,7 @@ script
    include(FetchContent)
    FetchContent_Declare(river
                         GIT_REPOSITORY https://github.com/uyha/cmake-modules.git
-                        GIT_TAG v0.1.0)
+                        GIT_TAG v0.2.0)
    FetchContent_MakeAvailable(river)
    list(APPEND CMAKE_MODULE_PATH "${river_SOURCE_DIR}")
 
@@ -84,7 +84,17 @@ Customizations
 
 Poetry
 ======
-This module installs Python dependencies specified in *pyproject.toml* using `poetry`_.
+This module installs the Python dependencies specified in *pyproject.toml* using `poetry`_.
+
+-----------------
+Defined Variables
+-----------------
+- ``Python_ROOT_DIR``: When ``find_package(Python)`` is used, the python interpreter
+  will be found in the poetry virtual environment.
+
+Pdm
+===
+This module install the Python dependencies specified in *pyproject.toml* using `pdm`_.
 
 -----------------
 Defined Variables
@@ -95,3 +105,4 @@ Defined Variables
 .. _ccache: https://ccache.dev/
 .. _conan: https://conan.io/
 .. _poetry: https://python-poetry.org/
+.. _pdm: https://pdm.fming.dev//
