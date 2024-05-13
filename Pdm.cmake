@@ -24,6 +24,12 @@ set(Python_ROOT_DIR
   "Path to the root directory of the target Python interpreter"
 )
 
+if(WIN32)
+  set(ENV{PATH} "${Python_ROOT_DIR}/bin;$ENV{PATH}")
+else()
+  set(ENV{PATH} "${Python_ROOT_DIR}/bin:$ENV{PATH}")
+endif()
+
 set_property(
   DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
   APPEND
