@@ -7,7 +7,8 @@ if(NOT EXISTS "${pyproject}")
   return()
 endif()
 
-if("${pyproject}" IS_NEWER_THAN "${CMAKE_CURRENT_SOURCE_DIR}/pdm.lock")
+if("${pyproject}" IS_NEWER_THAN "${CMAKE_CURRENT_SOURCE_DIR}/pdm.lock" OR NOT EXISTS
+"${CMAKE_CURRENT_SOURCE_DIR}/.pdm-python")
   pdm_install(QUIET NO_SELF
     EXECUTE_PROCESS
       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
