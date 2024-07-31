@@ -48,9 +48,13 @@ if(Conan_EXECUTABLE)
     set(options UPDATE NO_REMOTE LOCKFILE_PARTIAL LOCKFILE_CLEAN BUILD_REQUIRE)
     set(single_values CORE_CONF FORMAT VERBOSE NAME VERSION USER CHANNEL BUILD
                       PROFILE_BUILD PROFILE_HOST LOCK_FILE LOCKFILE_OUT OUTPUT_FOLDER
-                      DEPLOYER DEPLOYER_FOLDER DEPLOYER_PACKAGE
+                      DEPLOYER_FOLDER
     )
-    set(multi_values REQUIRES TOOL_REQUIRES REMOTE OPTION_BUILD OPTION_HOST SETTING_BUILD SETTING_HOST CONF_BUILD CONF_HOST GENERATOR)
+    set(multi_values REQUIRES TOOL_REQUIRES REMOTE
+                     OPTION_BUILD OPTION_HOST SETTING_BUILD SETTING_HOST
+                     CONF_BUILD CONF_HOST
+                     GENERATOR DEPLOYER DEPLOYER_PACKAGE
+    )
     cmake_parse_arguments(arg "${options}" "${single_values}" "${multi_values}" ${ARGN})
 
     if(arg_NO_REMOTE AND arg_REMOTE)
@@ -76,9 +80,7 @@ if(Conan_EXECUTABLE)
     _conan_install_add_value(LOCK_FILE --lockfile)
     _conan_install_add_value(LOCKFILE_OUT --lockfile-out)
     _conan_install_add_value(OUTPUT_FOLDER --output-folder)
-    _conan_install_add_value(DEPLOYER --deployer)
     _conan_install_add_value(DEPLOYER_FOLDER --deployer-folder)
-    _conan_install_add_value(DEPLOYER_PACKAGE --deployer-package)
 
     _conan_install_add_values(REQUIRES --requires)
     _conan_install_add_values(TOOL_REQUIRES --tool-requires)
@@ -90,6 +92,8 @@ if(Conan_EXECUTABLE)
     _conan_install_add_values(CONF_BUILD --conf:build)
     _conan_install_add_values(CONF_HOST --conf:host)
     _conan_install_add_values(GENERATOR --generator)
+    _conan_install_add_values(DEPLOYER --deployer)
+    _conan_install_add_values(DEPLOYER_PACKAGE --deployer-package)
 
     execute_process(
       COMMAND "${Conan_EXECUTABLE}" install ${optional_arguments} ${arg_UNPARSED_ARGUMENTS}
