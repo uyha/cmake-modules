@@ -44,6 +44,8 @@ if(NOT DEFINED CONAN_PROFILE_BUILD)
 endif()
 endif()
 
+list(APPEND conan_args "${CONAN_EXTRA_ARGS}")
+
 conan_install(
   "${CMAKE_CURRENT_SOURCE_DIR}"
   OUTPUT_FOLDER "${CMAKE_CURRENT_BINARY_DIR}"
